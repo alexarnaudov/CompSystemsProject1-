@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
+
 
 namespace ProjectPicturesGame
 {
@@ -16,6 +16,10 @@ namespace ProjectPicturesGame
         Button[,] btn = new Button[5, 5];       // Create 2D array of buttons
         PictureBox[,] pic = new PictureBox[5, 5];
         Button btn1 = new Button();              // Create new button
+
+
+        private System.Windows.Forms.Timer timer1;//initialize timer 
+        private int counter = 120;//set counter 
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +28,27 @@ namespace ProjectPicturesGame
             btn1.Text = "Start";      
             btn1.Click += new EventHandler(this.btn1Event_Click);
             Controls.Add(btn1);
+
+         // timer code 
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // 1 second
+            timer1.Start();
+            label1.Text = counter.ToString();
         }
+        private void timer1_Tick(object sender, EventArgs e)
+
+        {
+
+            counter--;
+            if (counter == 0)
+
+                timer1.Stop();
+            label1.Text = counter.ToString();
+
+        }
+
+
 
         void btn1Event_Click(object sender, EventArgs e) // when we click the button we generate array of buttons and pictureboxes for images
         {
@@ -63,6 +87,11 @@ namespace ProjectPicturesGame
 
         private void Form1_Load(object sender, EventArgs e)  //REQUIRED
         {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
